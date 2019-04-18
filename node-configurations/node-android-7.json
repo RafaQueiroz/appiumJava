@@ -1,0 +1,25 @@
+{
+	"capabilities": [
+		{
+			"browserName": "Android",// Nome de browser que será alocado no grid
+			"maxInstances": 1,// Quantidade total de instâncias dentro do nó
+			"platform": "ANDROID",// Plataforma em que o teste será executado o teste
+			"deviceName": "emulator-5554",// udid do device android
+			"newCommandTimeout": "30",
+			"deviceReadyTimeout": 5
+		}
+	],
+	"configuration": {
+		"cleanUpCycle": 2000,
+		"timeout": 10800,
+		"url": "http://127.0.0.1:4456/wd/hub",// url deste nó dentro do hub
+		"host": "127.0.0.1",// host deste nó
+		"port": 4456,// porta em que nó será executado
+		"proxy": "org.openqa.grid.selenium.proxy.DefaultRemoteProxy",
+		"maxSession": 1,// quantidade total de sessões simultâneas 
+		"register": true,
+		"registerCycle": 5000,
+		"hubPort": 4444,// porta do hub em que este nó vai se conectar
+		"hubHost": "127.0.0.1"// host do hub em que este nó vai se conectar
+	}
+}
