@@ -23,7 +23,7 @@ public class AppiumTest extends BaseTest {
 	private final int DEFAULT_WAIT = 10;
 
 	private FormularioPage formulario;
-	
+
 	@Before
 	public void testSetUp() {
 		this.wait = new WebDriverWait(this.getDriver(), DEFAULT_WAIT);
@@ -37,7 +37,7 @@ public class AppiumTest extends BaseTest {
 		assertTrue(this.getAcoes().estaVisivel(By.xpath("//android.widget.TextView[@text='Abas']")));
 
 	}
-	
+
 	@Test
 	public void enviaFormularioComSucesso() {
 		this.formulario = new FormularioPage(this.getDriver());
@@ -45,9 +45,14 @@ public class AppiumTest extends BaseTest {
 		this.formulario.preencherNome("Rafael Queiroz");
 		this.formulario.selecionarNoCombo("PS4");
 		this.formulario.salvar();
-		
+
 		Assert.assertEquals("Rafael Queiroz", this.formulario.getNomeSalvo());
 		Assert.assertEquals("ps4", this.formulario.getConsoleSalvo());
+	}
+
+	@Test
+	public void falhaPropositalmenteTest() {
+		Assert.fail("Falhou!");
 	}
 
 	@After

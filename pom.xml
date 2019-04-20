@@ -30,5 +30,13 @@
 			<artifactId>java-client</artifactId>
 			<version>7.0.0</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->
+		<dependency>
+			<groupId>com.aventstack</groupId>
+			<artifactId>extentreports</artifactId>
+			<version>4.0.9</version>
+		</dependency>
+
 	</dependencies>
 </project>
