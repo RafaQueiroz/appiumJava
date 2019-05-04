@@ -2,6 +2,7 @@ package br.com.appium.infra;
 
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebElement;
@@ -11,30 +12,37 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
-import io.appium.java_client.service.local.flags.ServerArgument;
 
 public class InfraAppium {
 
 	private AppiumDriverLocalService server;
 
 	private AppiumDriver<WebElement> driver;
-	
+
+	private ArquivoConfig config;
+
 	private int implicitTimeoutInSeconds = 10;
+
+	public InfraAppium() {
+
+		this.config = new ArquivoConfig(
+				Paths.get(System.getProperty("user.home"), "resource", "config.ini").toString());
+
+	}
 
 	/**
 	 * Inicia o servidor Appium
 	 */
 	public void startServer() {
 
-		server = new AppiumServiceBuilder()
-				.usingPort(4723)
-				.withIPAddress("0.0.0.0")
-				.withAppiumJS(new File("/home/rafael/.npm-global/bin/appium"))
-				.usingDriverExecutable(new File("/usr/bin/node"))
-				.withArgument(GeneralServerFlag.LOG_LEVEL, "error")
-				.build();
-		server.start();
+		Map<String, Object> serverCapabilities = this.config.getServerCapabilities();
 
+		this.server = new AppiumServiceBuilder().usingPort(4723).withIPAddress(serverCapabilities.get("serverIp").toString())
+				.withAppiumJS(new File(serverCapabilities.get("appiumJs").toString()))
+				.usingDriverExecutable(new File(serverCapabilities.get("nodeExe").toString()))
+				.withArgument(GeneralServerFlag.LOG_LEVEL, "error").build();
+		
+		this.server.start();
 	}
 
 	/**
@@ -43,15 +51,13 @@ public class InfraAppium {
 	public AppiumDriver<WebElement> createDriver() {
 
 		DesiredCapabilities capabilities = new DesiredCapabilities();
-		capabilities.setCapability("deviceName", "Android Emulator");
-		capabilities.setCapability("platformName", "Android");
 
-		String apkPath = Paths.get(System.getenv("HOME"), "Downloads", "CTAppium-1-1.apk").toString();
-		capabilities.setCapability("app", apkPath);
-		capabilities.setCapability("plataformVersion", "7.0.0");
-		capabilities.setCapability("avd", "AppiumDev7");
-		capabilities.setCapability("noReset", true);
-		capabilities.setCapability("resetKeyboard", true);
+		Map<String, Object> driverCapabilities = this.config.getDriverCapabilities();
+
+		for (String capKey : driverCapabilities.keySet()) {
+			capabilities.setCapability(capKey, driverCapabilities.get(capKey));
+		}
+
 //		capabilities.setCapability("avdArgs", "-no-audio -no-window"); 
 
 		if (server == null) {

@@ -21,7 +21,7 @@ public class Relatorio {
 
 		this.report = new ExtentReports();
 		this.htmlReporter = new ExtentHtmlReporter(
-				Paths.get(System.getProperty("user.home"), "relatorio", "relatorio.html").toFile());
+				Paths.get(System.getProperty("user.dir"),"target", "relatorio", "relatorio.html").toFile());
 
 		this.report.attachReporter(this.htmlReporter);
 	}
