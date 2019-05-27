@@ -5,8 +5,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.WebElement;
 
 
-@ExtendWith({InfraExtension.class, RelatorioExtension.class})
-public abstract class BaseTest {
+@ExtendWith({EmulatorExtension.class, InfraExtension.class, RelatorioExtension.class})
+public abstract class AbstractBaseTest {
 
 	private InfraAppium infra;
 

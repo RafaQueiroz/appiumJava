@@ -49,8 +49,8 @@ public class Relatorio {
 		this.testeAtual.fail(throwable);
 	}
 
-	public void pular(Throwable throwable) {
-		this.testeAtual.skip(throwable);
+	public void pular() {
+//		this.testeAtual.skip(throwable);
 	}
 
 	public void gerar() {

@@ -26,7 +26,7 @@ public class InfraAppium {
 	public InfraAppium() {
 
 		this.config = new ArquivoConfig(
-				Paths.get(System.getProperty("user.home"), "resource", "config.ini").toString());
+				Paths.get(System.getProperty("user.home"), "resource", "configs", "config.ini").toString());
 
 	}
 
@@ -67,6 +67,10 @@ public class InfraAppium {
 		this.driver = new AppiumDriver<WebElement>(this.server, capabilities);
 		this.driver.manage().timeouts().implicitlyWait(implicitTimeoutInSeconds, TimeUnit.SECONDS);
 
+		return this.driver;
+	}
+
+	public AppiumDriver<WebElement> getDriver(){
 		return this.driver;
 	}
 

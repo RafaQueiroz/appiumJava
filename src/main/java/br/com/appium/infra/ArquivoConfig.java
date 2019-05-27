@@ -134,8 +134,8 @@ public class ArquivoConfig {
 		config.put("deviceName", "Android Emulator");
 		config.put("platformName", "Android");
 		config.put("app", Paths.get(System.getenv("HOME"), "Downloads", "CTAppium-1-1.apk").toString());
-		config.put("platformVersion", "7.0.0");
-		config.put("avd", "AppiumDev7");
+		config.put("platformVersion", "7.1.1");
+		config.put("avd", "Nexus_5X_API_25");
 		config.put("noReset", "true");
 		config.put("resetKeyboard", "true");
 
